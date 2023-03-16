@@ -2,7 +2,7 @@
     <div class="nav-wrapper" :class="{ 'nav-scrolled': isScrolled }">
         <div class="nav nav-left">
             <nav>
-                <router-link to="/shop">Shop</router-link>
+                <router-link to="/products">Products</router-link>
                 <router-link to="/our-story">Our Story</router-link>
                 <a href="#">Search</a>
             </nav>
@@ -10,7 +10,7 @@
 
         <div class="nav-center">
             <router-link to="/">
-                <img src="../../assets/logo-white.svg" alt="logo">
+                <img src="../../assets/logo.svg" alt="logo">
             </router-link>
         </div>
 
@@ -18,6 +18,7 @@
             <nav>
                 <router-link to="/login">Login</router-link>
                 <router-link to="/signup">Sign Up</router-link>
+                <button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
                 <a href="#">Cart</a>
             </nav>
         </div>
@@ -25,14 +26,28 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+    
 export default {
+
     data() {
         return {
             isScrolled: false,
+            isLoggedIn: false
         };
     },
      mounted() {
-        window.addEventListener("scroll", this.handleScroll);
+         window.addEventListener("scroll", this.handleScroll);
+
+         // auth logic
+         const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    this.isLoggedIn = true;
+                } else {
+                    this.isLoggedIn = false;
+                }
+            });
     },
     unmounted() {
         window.removeEventListener("scroll", this.handleScroll);
@@ -40,6 +55,16 @@ export default {
     methods: {
         handleScroll() {
             this.isScrolled = window.scrollY > 30;
+        },
+        handleSignOut() {
+            const auth = getAuth();
+            
+            signOut(auth).then(() => {
+                console.log('signed out');
+                this.$router.push({ name: 'Home' });
+            }).catch((error) => {
+                console.log('error', error);
+            });
         },
     },
 }
@@ -58,7 +83,7 @@ export default {
         align-items: center;
         padding: 0 2rem;
         height: 5rem;
-        color: #fff;
+       
         z-index: 100;
 
         .nav {
@@ -71,7 +96,7 @@ export default {
 
             a { 
                 padding: 0 1rem;
-                color: #fff;
+                 color: #000;
                 text-decoration: none;
                 transition: all 0.3s ease;
 
@@ -91,8 +116,8 @@ export default {
     }
 
     .nav-scrolled {
-        background-color: rgba(0, 0, 0, 0.9);
-        transition: background-color 0.5s ease-in-out;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
 

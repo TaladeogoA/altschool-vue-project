@@ -2,20 +2,6 @@
     <div class="sign-up">
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <label>First Name</label>
-                <input type="text" 
-                v-model="firstName"
-                placeholder="Enter first name" />
-            </div>
-
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" 
-                v-model="lastName"
-                placeholder="Enter last name" />
-            </div>
-
-            <div class="form-group">
                 <label>Email</label>
                 <input type="email" 
                 v-model="email"
@@ -29,24 +15,51 @@
                 placeholder="Enter password" />
             </div>
 
-            <button>Sign Up</button>
+            <button @click="handleSubmit">Sign Up</button>
+            <button @click="signInWithGoogle">Sign In with Google
+            </button>
         </form>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
     export default {
        data() {
         return {
-            firstName: '',
-            lastName: '',
             email: '',
             password: ''
         }
     },
     methods: {
-        handleSubmit() {
-            console.log(this.email, this.password);
+        ...mapActions(['signUp']),
+
+       async handleSubmit() {
+            // const auth = getAuth();
+            // createUserWithEmailAndPassword(auth, this.email, this.password)
+            // .then((userCredential) => {
+            //     const user = userCredential.user;
+            //     console.log('signed up', user);
+            //     this.$router.push({ name: 'Shop' });
+            // })
+            // .catch((error) => {
+            //     const errorCode = error.code;
+            //     const errorMessage = error.message;
+
+            //     console.log('error', errorCode, errorMessage);
+            // });
+          
+           try {
+                await this.signUp({ email: this.email, password: this.password });
+                this.$router.push({ name: 'Shop' });
+           } 
+              catch (error) {
+                 console.log(error, 'error in component');
+              }
+        },
+        signInWithGoogle() {
+            console.log('Sign in with Google');
         }
     }
     }

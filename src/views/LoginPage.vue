@@ -15,6 +15,8 @@
     
             <button>Login</button>
 
+            <router-link to="/signup">Don't have an account? Sign Up</router-link>
+
         </form>
 
         <p v-if="errorMessage">
@@ -77,7 +79,7 @@ export default {
                             console.log(error.code);
                             break;
                         default:
-                            this.errorMessage = 'Please recheck your email and password';
+                            this.errorMessage = 'Oops! Something went wrong on our end. Please try again later or contact support if the problem persists.';
                             console.log(error.code);
                   }
                 });

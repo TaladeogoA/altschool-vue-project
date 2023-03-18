@@ -7,7 +7,7 @@
         </div>
     </section>
 
-    <section class="split-hero">
+    <!-- <section class="split-hero">
         <div class="split-hero-left">
            
         </div>
@@ -20,7 +20,7 @@
 
               <ButtonComponent color="black" size="md" @click="handleClick">Go to Gadgets</ButtonComponent>
         </div>
-    </section>
+    </section> -->
 </template>
 
 <script>

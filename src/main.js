@@ -39,9 +39,12 @@ const router = createRouter({
       },
     },
     {
-      path: "/shop/:id",
+      path: "/products/:id",
       name: "product-details",
       component: ProductDetailsPage,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/our-story",
@@ -81,6 +84,8 @@ const getCurrentUser = () => {
 };
 
 router.beforeEach(async (to, from, next) => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (await getCurrentUser()) {
       next();

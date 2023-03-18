@@ -1,67 +1,45 @@
 <template>
-    <button class="btn" :class="[color, size]" @click="handleClick">
-        <slot></slot>
-      </button>
+  <button @click="handleClick">
+    <slot></slot>
+  </button>
 </template>
 
 <script>
 export default {
-    name: "ButtonComponent",
-    props: {
-        color: {
-            type: String,
-            default: "primary",
-        },
-        size: {
-            type: String,
-            default: "md",
-        },
+  name: "ButtonComponent",
+  props: {
+    color: {
+      type: String,
     },
-    methods: {
-        handleClick() {
-            this.$emit("click");
-        },
+    size: {
+      type: String,
     },
+  },
+  methods: {
+    handleClick() {
+      this.$emit("click");
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.btn {
-   background-color: transparent;
-    padding: 1rem 3rem;
-    border-radius: 3rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
+button {
+  margin: 1rem 0;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  transition: all 0.5s ease-in-out;
+  outline: none;
+  font-size: 1rem;
+  line-height: 2.2rem;
+  border-radius: 3rem;
+  background: transparent;
+  font-weight: 300;
+  letter-spacing: 0;
 
-    
-}
-
-.white {
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
     color: #fff;
-     border: 1px solid #fff;
-
-     &:hover {
-        background-color: rgba(255, 255, 255, 0.4);
-        color: #fff;
-    }
-}
-
-.black {
-    color: #000;
-    border: 1px solid #000;
-
-     &:hover {
-                    background-color: #000000a8;
-                    color: #fff;
-                }
-}
-
-.md {
-    font-size: 1rem;
-}
-
-.lg {
-    font-size: 1.2rem;
+  }
 }
 </style>

@@ -10,23 +10,23 @@
 
     <div class="nav-center">
       <router-link to="/">
-        <img src="../../assets/logo-white.svg" alt="logo" />
+        <img src="../../assets/logo-black.svg" alt="logo" />
       </router-link>
     </div>
 
     <div class="nav nav-right">
       <nav>
-        <a href="#">Cart</a>
-
         <div v-if="!isLoggedIn" class="auth">
           <router-link class="login" to="/login">Log In</router-link>
 
           <router-link class="signup" to="/signup">Sign Up</router-link>
-
-          <button class="signout" @click="handleSignOut" v-if="isLoggedIn">
-            Sign Out
-          </button>
         </div>
+
+        <button class="signout" @click="handleSignOut" v-if="isLoggedIn">
+          Sign Out
+        </button>
+
+        <a href="#">Cart</a>
       </nav>
     </div>
   </div>
@@ -91,13 +91,9 @@ export default {
   height: 5rem;
   z-index: 100;
 
-  > {
-    flex-grow: 1;
-    flex-basis: 0;
-  }
-
   .nav {
     font-family: Poppins, Arial, sans-serif;
+    width: 33%;
 
     nav {
       display: flex;
@@ -122,14 +118,60 @@ export default {
     }
   }
 
-  .auth {
-    .signout {
+  .signout {
+    margin-left: 1rem;
+    padding: 0.6rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
     }
   }
 }
 
 .nav-scrolled {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// responsive styles
+
+@media screen and (max-width: 768px) {
+  .nav-wrapper {
+    padding: 0 1rem;
+    height: 4rem;
+
+    .nav {
+      width: 50%;
+
+      nav {
+        a {
+          padding: 0 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .nav-wrapper {
+    padding: 0 0.5rem;
+    height: 3.5rem;
+
+    .nav {
+      width: 100%;
+
+      nav {
+        a {
+          padding: 0 0.5rem;
+        }
+      }
+    }
+  }
 }
 </style>

@@ -54,12 +54,6 @@ section {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-
-    .product-card {
-      width: 15rem;
-      max-height: 25rem;
-      margin: 1rem;
-    }
   }
 }
 </style>

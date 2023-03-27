@@ -16,15 +16,12 @@
 
     <div class="nav nav-right">
       <nav>
-        <div v-if="!isLoggedIn" class="auth">
-          <router-link class="login" to="/login">Log In</router-link>
+        <!-- <router-link class="signup" to="/signup">Sign Up</router-link> -->
 
-          <router-link class="signup" to="/signup">Sign Up</router-link>
-        </div>
-
-        <button class="signout" @click="handleSignOut" v-if="isLoggedIn">
+        <a class="signout" @click="handleSignOut" v-if="isLoggedIn">
           Sign Out
-        </button>
+        </a>
+        <router-link v-else class="login" to="/login">Log In</router-link>
 
         <a href="#">Cart</a>
       </nav>
@@ -118,19 +115,10 @@ export default {
     }
   }
 
-  .signout {
-    margin-left: 1rem;
-    padding: 0.6rem;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.7);
-    }
+  .nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 

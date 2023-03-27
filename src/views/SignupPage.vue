@@ -18,20 +18,27 @@
       </div>
 
       <button @click="handleSubmit">Sign Up</button>
-      <!-- <button @click="signInWithGoogle">Sign In with Google</button> -->
     </form>
+
+    <ErrorModal v-if="errorMessage" :error-message="errorMessage" />
   </div>
 </template>
 
 <script>
 import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
+import ErrorModal from "@/components/ui/ErrorModal.vue";
 import { mapActions } from "vuex";
 
 export default {
+  name: "SignupPage",
+  components: {
+    ErrorModal,
+  },
   data() {
     return {
       email: "",
       password: "",
+      errorMessage: "",
     };
   },
   methods: {
@@ -46,22 +53,31 @@ export default {
           this.$router.push({ name: "Products" });
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          console.log("error", errorCode, errorMessage);
+          this.errorMessage = error.message;
+          switch (error.code) {
+            case "auth/invalid-email":
+              this.errorMessage = "Invalid email";
+              console.log(error.code);
+              break;
+            case "auth/user-disabled":
+              this.errorMessage = "User disabled";
+              console.log(error.code);
+              break;
+            case "auth/user-not-found":
+              this.errorMessage = "User not found";
+              console.log(error.code);
+              break;
+            case "auth/wrong-password":
+              this.errorMessage = "Wrong password";
+              console.log(error.code);
+              break;
+            default:
+              this.errorMessage =
+                "Oops! Something went wrong on our end. Please try again later or contact support if the problem persists.";
+              console.log(error.code);
+          }
         });
-
-      //   try {
-      //     await this.signUp({ email: this.email, password: this.password });
-      //     this.$router.push({ name: "Home" });
-      //   } catch (error) {
-      //     console.log(error, "error in component");
-      //   }
     },
-    // signInWithGoogle() {
-    //   console.log("Sign in with Google");
-    // },
   },
 };
 </script>

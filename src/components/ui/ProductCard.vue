@@ -3,7 +3,7 @@
     <img :src="product.images[0]" :alt="product.name" />
     <div class="product-card__details">
       <h2 class="product-card__name">{{ product.name }}</h2>
-      <p class="product-card__description">{{ product.description }}</p>
+      <p class="product-card__description">{{ truncatedDesc }}</p>
       <p class="product-card__price">{{ product.price }}</p>
       <button class="product-card__button">Add to cart</button>
     </div>
@@ -21,18 +21,26 @@ export default {
     },
   },
 
+  data() {
+    return {
+      text: this.product.description,
+      maxLength: 80,
+    };
+  },
+
   computed: {
     ...mapGetters(["getCart"]),
     products() {
       return this.getCart;
     },
+    truncatedDesc() {
+      if (this.text.length <= this.maxLength) {
+        return this.text;
+      } else {
+        return this.text.substring(0, this.maxLength) + "...";
+      }
+    },
   },
-
-  // methods: {
-  //   addToCart() {
-  //     this.$store.dispatch("addToCart", this.product);
-  //   },
-  // },
 };
 </script>
 
@@ -45,10 +53,9 @@ export default {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
+  width: 15rem;
+  height: 22rem;
+  margin: 1rem;
 
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -56,7 +63,7 @@ export default {
 
   img {
     width: 100%;
-    height: 100%;
+    height: 40%;
     object-fit: cover;
   }
 
@@ -65,6 +72,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     margin-left: 1rem;
+    height: 60%;
   }
 
   &__name {

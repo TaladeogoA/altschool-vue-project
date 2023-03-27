@@ -25,20 +25,20 @@
       <router-link to="/signup">Don't have an account? Sign Up</router-link>
     </form>
 
-    <p v-if="errorMessage">
-      {{ errorMessage }}
-    </p>
+    <ErrorModal v-if="errorMessage" :error-message="errorMessage" />
   </div>
 </template>
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "@firebase/auth";
 import ButtonComponent from "../components/ui/ButtonComponent.vue";
+import ErrorModal from "@/components/ui/ErrorModal.vue";
 
 export default {
   name: "LoginPage",
   components: {
     ButtonComponent,
+    ErrorModal,
   },
   data() {
     return {

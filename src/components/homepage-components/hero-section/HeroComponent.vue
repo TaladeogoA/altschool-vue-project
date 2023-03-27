@@ -6,7 +6,7 @@
         products!
       </h1>
 
-      <ButtonComponent color="white" size="lg" @click="handleClick"
+      <ButtonComponent color="black" type="hero" @click="handleClick"
         >Shop Now!</ButtonComponent
       >
     </div>
@@ -17,9 +17,11 @@
 import ButtonComponent from "../../ui/ButtonComponent.vue";
 
 export default {
+  name: "HeroComponent",
   components: {
     ButtonComponent,
   },
+
   methods: {
     handleClick() {
       console.log("clicked");
@@ -45,7 +47,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #fff;
+    color: #000;
 
     h1 {
       font-family: "Canela-Light";
@@ -56,17 +58,6 @@ export default {
     }
   }
 }
-
-.split-hero {
-  width: 100%;
-  height: 70vh;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #000000a8;
-  color: #fff;
-}
-
 // responsive styles
 
 @media screen and (max-width: 768px) {
